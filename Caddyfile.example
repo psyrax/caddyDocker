@@ -6,18 +6,16 @@
 
 {
     # Global options
+    # Let's Encrypt sends certificate expiry warnings to this address
     email your@email.com
 
+    # Token must have Zone / DNS / Edit permission for your domain
     acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
 }
 
 # Wildcard certificate covers all subdomains
 *.example.com, example.com {
-    tls {
-        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
-    }
-
-    # Static files subdominio — served from read-only /srv/www
+    # Static files subdomain — served from read-only /srv/www
     @static host static.example.com
     handle @static {
         root * /srv/www
@@ -35,4 +33,9 @@
     handle {
         respond "Not found" 404
     }
+}
+
+# Redirect HTTP to HTTPS for all hosts
+http:// {
+    redir https://{host}{uri} permanent
 }
