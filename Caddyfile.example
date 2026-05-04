@@ -1,0 +1,38 @@
+# Caddyfile.example
+# Copy this to your host path and mount it at /etc/caddy/Caddyfile
+#
+# Replace "example.com" with your actual domain.
+# Replace "CLOUDFLARE_API_TOKEN" with your token env var name.
+
+{
+    # Global options
+    email your@email.com
+
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+}
+
+# Wildcard certificate covers all subdomains
+*.example.com, example.com {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    # Static files subdominio — served from read-only /srv/www
+    @static host static.example.com
+    handle @static {
+        root * /srv/www
+        file_server
+    }
+
+    # Reverse proxy subdomain — forwards to another container
+    # Replace "192.168.1.100:3000" with your target service host:port
+    @app host app.example.com
+    handle @app {
+        reverse_proxy 192.168.1.100:3000
+    }
+
+    # Catch-all for unmatched subdomains
+    handle {
+        respond "Not found" 404
+    }
+}
