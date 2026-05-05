@@ -24,6 +24,8 @@
 
   <Config Name="HTTPS Port" Target="8443" Default="8443" Mode="tcp" Description="HTTPS port exposed on the host" Type="Port" Display="always" Required="true" Mask="false">8443</Config>
 
+  <Config Name="HTTPS Port (HTTP/3 UDP)" Target="8443" Default="8443" Mode="udp" Description="UDP port for HTTP/3 (QUIC). Optional — omit if HTTP/3 is not needed." Type="Port" Display="advanced" Required="false" Mask="false">8443</Config>
+
   <Config Name="HTTP Port" Target="8080" Default="8080" Mode="tcp" Description="HTTP port (redirects to HTTPS)" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
 
   <Config Name="Cloudflare API Token" Target="CLOUDFLARE_API_TOKEN" Default="" Mode="" Description="Cloudflare API Token with Zone:DNS:Edit permission for your domain" Type="Variable" Display="always" Required="true" Mask="true"></Config>
