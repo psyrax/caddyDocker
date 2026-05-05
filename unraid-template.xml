@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>caddy-https</Name>
+  <Repository>caddy-cloudflare</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project>https://caddyserver.com</Project>
+  <Overview>Caddy web server with automatic HTTPS via Cloudflare DNS challenge. Serves static files and/or acts as reverse proxy for multiple subdomains.</Overview>
+  <Category>Network:Web</Category>
+  <WebUI>https://[IP]:[PORT:8443]/</WebUI>
+  <TemplateURL/>
+  <Icon>https://caddyserver.com/old/resources/images/caddy-logo.svg</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+
+  <Config Name="HTTPS Port" Target="8443" Default="8443" Mode="tcp" Description="HTTPS port exposed on the host" Type="Port" Display="always" Required="true" Mask="false">8443</Config>
+
+  <Config Name="HTTP Port" Target="8080" Default="8080" Mode="tcp" Description="HTTP port (redirects to HTTPS)" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+
+  <Config Name="Cloudflare API Token" Target="CLOUDFLARE_API_TOKEN" Default="" Mode="" Description="Cloudflare API Token with Zone:DNS:Edit permission for your domain" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+
+  <Config Name="Static HTML folder" Target="/srv/www" Default="/mnt/user/appdata/caddy/www" Mode="ro" Description="Folder containing static HTML files. Mounted read-only for security." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/caddy/www</Config>
+
+  <Config Name="Caddyfile" Target="/etc/caddy/Caddyfile" Default="/mnt/user/appdata/caddy/Caddyfile" Mode="ro" Description="Path to your Caddyfile configuration on the host" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/caddy/Caddyfile</Config>
+
+  <Config Name="Caddy Data (certificates)" Target="/data" Default="/mnt/user/appdata/caddy/data" Mode="rw" Description="Persistent storage for TLS certificates. Do not delete." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/caddy/data</Config>
+
+  <Config Name="Caddy Config" Target="/config" Default="/mnt/user/appdata/caddy/config" Mode="rw" Description="Persistent storage for Caddy internal state" Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/caddy/config</Config>
+</Container>
