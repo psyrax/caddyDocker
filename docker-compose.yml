@@ -6,11 +6,12 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
+      - "8443:443/udp"
     environment:
-      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN:?CLOUDFLARE_API_TOKEN must be set}
     volumes:
-      - ${CADDYFILE_PATH:-./Caddyfile.example}:/etc/caddy/Caddyfile:ro
-      - ${WWW_PATH:-/mnt/user/appdata/caddy/www}:/srv/www:ro
+      - "${CADDYFILE_PATH:-./Caddyfile.example}:/etc/caddy/Caddyfile:ro"
+      - "${WWW_PATH:-/mnt/user/appdata/caddy/www}:/srv/www:ro"
       - caddy_data:/data
       - caddy_config:/config
 
